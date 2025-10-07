@@ -69,3 +69,34 @@ Get predictions with confidence scores
 View performance charts (accuracy, confusion matrix)
 Browse sample signatures per student
 Analyze misclassified cases
+
+🛠 Requirements
+
+See requirements.txt
+Core dependencies:
+
+Python 3.8+
+OpenCV (cv2)
+scikit-learn
+matplotlib
+numpy
+pillow
+tkinter (built-in with Python)
+
+🤝 Contributing
+
+Contributions are welcome! 🎉
+Fork the repository
+Create a new branch (git checkout -b feature-xyz)
+Commit changes (git commit -m "Add feature xyz")
+Push to the branch (git push origin feature-xyz)
+Open a Pull Request
+
+📦 requirements.txt  
+
+```txt
+opencv-python
+scikit-learn
+matplotlib
+numpy
+pillow
