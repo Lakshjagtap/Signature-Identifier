@@ -116,22 +116,31 @@ class SignatureApp:
                 messagebox.showerror("Error", "Failed to read or preprocess image.")
                 return
 
-                threshold = 0.75  # 75%
-
-                proba = model.predict_proba(features)[0]
+            # Confidence threshold
+            threshold = 0.75  # 75%
+            if hasattr(self.clf, "predict_proba"):
+                proba = self.clf.predict_proba(features)[0]
                 pred = np.argmax(proba)
                 confidence = proba[pred] * 100
+            else:
+                # fallback if model does not support predict_proba
+                pred = self.clf.predict(features)[0]
+                confidence = None
 
-                if confidence < threshold * 100:
-                    result = "❌ Unknown / Forged Signature"
-                else:
-                    result = f"✅ Predicted: {label_names[pred]} ({confidence:.2f}%)"
+            if confidence is not None and confidence < threshold * 100:
+                result = "❌ Unknown / Forged Signature"
+            else:
+                result = f"✅ Predicted: {self.label_names[pred]}"
+                if confidence is not None:
+                    result += f" ({confidence:.2f}%)"
 
+            self.result_label.config(text=result)
 
             # Display uploaded image
             img_pil = Image.fromarray(preprocessed_img).resize((150, 150))
             self.imgtk = ImageTk.PhotoImage(img_pil)
             self.img_label.configure(image=self.imgtk)
+
 
     # ------------------ Plot Accuracy & Confusion Matrix ------------------
     def plot_model_performance(self):
