@@ -116,10 +116,17 @@ class SignatureApp:
                 messagebox.showerror("Error", "Failed to read or preprocess image.")
                 return
 
-            prediction = self.clf.predict(features)[0]
-            prob = max(self.clf.predict_proba(features)[0])
-            student_name = self.label_names[prediction]
-            self.result_label.config(text=f"✅ Signature: {student_name}\nConfidence: {prob:.2f}")
+                threshold = 0.75  # 75%
+
+                proba = model.predict_proba(features)[0]
+                pred = np.argmax(proba)
+                confidence = proba[pred] * 100
+
+                if confidence < threshold * 100:
+                    result = "❌ Unknown / Forged Signature"
+                else:
+                    result = f"✅ Predicted: {label_names[pred]} ({confidence:.2f}%)"
+
 
             # Display uploaded image
             img_pil = Image.fromarray(preprocessed_img).resize((150, 150))
