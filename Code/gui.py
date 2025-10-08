@@ -117,7 +117,7 @@ class SignatureApp:
                 return
 
             # Confidence threshold
-            threshold = 0.75  # 75%
+            threshold = 0.65  # 65%
             if hasattr(self.clf, "predict_proba"):
                 proba = self.clf.predict_proba(features)[0]
                 pred = np.argmax(proba)
