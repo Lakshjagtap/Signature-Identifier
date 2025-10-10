@@ -157,7 +157,7 @@ class SignatureApp:
         num_classes = self.cm.shape[0]
         labels_present = self.label_names[:num_classes]
 
-        disp = ConfusionMatrixDisplay(self.cm, display_labels=labels_present)
+        disp = ConfusionMatrixDisplay(self.cm)
         disp.plot(ax=self.axs[1], cmap=plt.cm.Blues, colorbar=False)
         self.axs[1].set_title("Confusion Matrix")
 
